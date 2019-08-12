@@ -1,5 +1,8 @@
-蓝鲸智云应用开发模板--助力你的自动化
-这里有各种层次的应用样例，根据你的需要，选择合适的样例开始快速开发。
+
+腾讯蓝鲸平台SaaS应用
+# 针对公司业务开发的配置管理系统，集中管理服务器相关的配置，使代码和配置节藕，通过服务器代码通过restful api动态加载配置。
+
+
 
 运行要求说明：
 
@@ -42,3 +45,5 @@
 	conf/settings_development.py 文件：DATABASES（本地开发数据库信息）
 	conf/settings_testing.py 文件：DATABASES（测试环境数据库信息）
 	conf/settings_production.py 文件：DATABASES（正式环境数据库信息）
+运行：
+python manage.py runserver 0:8000
