@@ -1,0 +1,40 @@
+<%inherit file="/home_application/base.html"/>
+<!-- {% extends "home_application/base1.html" %} -->
+
+<%block name="content_head">
+       <span class="king-breadcrumb-link">CMDB</span>
+       <span class="king-breadcrumb-separator">/</span>
+       <span class="king-breadcrumb-link">Project</span>
+       <span class="king-breadcrumb-separator">/</span>
+       <span class="king-breadcrumb-link">Guide</span>
+</%block>
+
+<%block name="content">
+<link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
+
+
+<div class="container">
+  <h3>CMDB Introduction</h3>
+   <h4>开服部署时需要修改以下相关模块:</h4>
+  <ul>
+    <li>出档脚本 -- 构建数据档及推送镜像的脚本</li>
+    <li>enter_point脚本 -- 容器启动时加载的脚本</li>
+    <li>script/fixsetting -- MSDK,开关等相关脚本</li>
+    <li>script/config -- dispatch,globallocale的nginx配置脚本</li>
+  </ul>
+    
+  <h4>4大模块进行了重构,代码和配置完全分离开来,通过CMDB集中管理配置.功能如下:</h4>
+  <ul>
+    <li>可视化编辑</li>
+    <li>API</li>
+    <li>操作审计</li>
+    <li>上传下载</li>
+  </ul>
+  <h3>CMDB Architecture</h3>
+<img class="img-responsive" src="${STATIC_URL}img/cmdb_architect.JPG"/>
+</div>
+
+</%block>
+
+
+      

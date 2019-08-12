@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <!-- 若您需要使用Kendo UI Professional，请联系版权人获得合法的授权或许可。 -->
+    
+    <!-- Bootstrap css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <!-- kendo ui css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.common.min.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.default.min.css" rel="stylesheet">
+    <!-- font-awesome -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <!--蓝鲸提供的公用样式库 -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
+    <!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+    <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <!-- 包括所有kendoui的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <!--[if lt IE 9]>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/html5shiv.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/respond.min.js"></script>
+    <![endif]-->
+    <!-- 数据埋点统计 -->
+    <script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/codemirror-5.11/lib/codemirror.css" rel="stylesheet">
+     <link href="${STATIC_URL}js/codemirror-5.48.0/theme/midnight.css" rel="stylesheet">
+<script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+<script src="https://magicbox.bk.tencent.com/static_api/v3/assets/codemirror-5.11/lib/codemirror.js"></script>
+<script src="https://magicbox.bk.tencent.com/static_api/v3/assets/codemirror-5.11/mode/xml/xml.js"></script>
+<link rel="stylesheet" href="${STATIC_URL}js/codemirror-5.48.0/addon/display/fullscreen.css">
+    <script src="${STATIC_URL}js/codemirror-5.48.0/addon/display/fullscreen.js"></script>
+    <script src="${STATIC_URL}js/codemirror-5.48.0/mode/python/python.js"></script>
+     <script src="${STATIC_URL}js/codemirror-5.48.0/mode/shell/shell.js"></script>
+<!-- <style type="text/css">
+.CodeMirror{border:1px solid #ddd;font- size:15px;width:600px;height:700px}
+</style> -->
+</head>
+
+
+<body>
+   
+
+
+<<!--HTML-->
+<!-- <div style="border: 1px solid #ddd;" id="editor2_demo1"> -->
+    <button id="mode"></button>
+<textarea id="editor2_demo"></textarea>
+<!-- 代码文本 start -->
+<pre id="code_box" style="display:none;">
+<!-- import numpy as np
+cimport cython
+from libc.math cimport sqrt
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+def pairwise_cython(double[:, ::1] X):
+    cdef int M = X.shape[0]
+    cdef int N = X.shape[1]
+    cdef double tmp, d
+    cdef double[:, ::1] D = np.empty((M, M), dtype=np.float64)
+    for i in range(M):
+        for j in range(M):
+            d = 0.0
+            for k in range(N):
+                tmp = X[i, k] - X[j, k]
+                d += tmp * tmp
+            D[i, j] = sqrt(d)
+    return np.asarray(D)
+ -->
+
+</pre>
+<!-- <p id="test">wo ai wo jia$nbsp</p> -->
+<!-- 代码文本 end -->
+</div>
+<!--JS--> 
+
+
+<link href="https://magicbox.bk.tencent.com/static_api/v3/assets/toastr-2.1.2/toastr.min.css" rel="stylesheet">
+<script src="https://magicbox.bk.tencent.com/static_api/v3/assets/toastr-2.1.2/toastr.min.js"></script>
+
+
+<script>
+//editor2_demo1_js_start
+var codeText = $('#code_box').html();
+var editor = CodeMirror.fromTextArea(document.getElementById("editor2_demo"), {
+  lineNumbers: true,
+  mode: "text/x-python",
+  matchBrackets: true,
+  theme:"midnight",
+  extraKeys:{
+"Ctrl":"autocomplete",
+"Ctrl-Space":function () {
+alert("绑定了Ctrl-F7");
+},
+"Space": function (cm) {
+cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+}
+}
+});
+
+editor.setValue(codeText)
+//editor2_demo1_js_end
+</script>
+</body>
+
+</html>

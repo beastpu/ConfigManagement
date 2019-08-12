@@ -1,0 +1,60 @@
+  <%inherit file="/home_application/base.html"/>
+<!-- {% extends "home_application/base1.html" %} -->
+<%block name="content">
+ <!-- {% block content %} -->
+  
+      <div class="container-fluid mb0 ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="container-fluid mb0 ">
+                                <div class="row">
+                                   
+                                 <div class="col-md-12">
+                                   <div class="panel king-panel1 mb0  ">
+                                    <div class="panel-heading king-panel-head1 king-panel-top1">
+                                   
+                                      <h3 class="panel-title">历史版本 <a class="king-btn-demo king-btn king-info pull-right" title="返回" href="../../">
+                                         <i class="fa fa-mail-reply-all btn-icon"></i>返回
+                                      </a></h3>
+                      
+                         
+                                   </div>
+                                            <div class="panel-body">
+                                                <ul class="list-group">
+                                                   % for hconf in historyConf:
+                                                    <a href="../${hconf.id}/compare/"><li class="list-group-item">
+                                                        <span class="badge king-info">${hconf.create_user}</span> <i class="fa fa-globe"></i>
+                                                        <span>${hconf.create_time} ${hconf.fileName} &nbsp; ${hconf.comment}</span>
+                                                    </li></a>
+                                                   % endfor
+                                                </ul>
+                                                <!-- 设置面板Start -->
+                                                <!-- 设置面板End -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                      </div>
+                    </div>
+                </div>
+
+
+
+
+
+<script src="https://magicbox.bk.tencent.com/static_api/v3/assets/jstree-3.1.1/dist/jstree.min.js"></script>
+ <script src="${STATIC_URL}js/cmdb.js" type="text/javascript"></script>
+<!-- <script src="{{ STATIC_URL }}js/cmdb.js" type="text/javascript"></script> -->
+<!-- {% endblock %} -->
+</%block>
+
+
+      
+
+
+
+
+                        
+
+                         

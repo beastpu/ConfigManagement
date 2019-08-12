@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <!-- 若您需要使用Kendo UI Professional，请联系版权人获得合法的授权或许可。 -->
+    <!-- Bootstrap css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <!-- kendo ui css -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.common.min.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/styles/kendo.default.min.css" rel="stylesheet">
+    <!-- font-awesome -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <!--蓝鲸提供的公用样式库 -->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk.css" rel="stylesheet">
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/bk/css/bk_pack.css" rel="stylesheet">
+    <!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+    <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    <!-- 包括所有kendoui的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+    <!-- 数据埋点统计 -->
+    <script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
+    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <!--[if lt IE 9]><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/html5shiv.min.js"></script><script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/respond.min.js"></script><![endif]-->
+    <link rel="stylesheet" href="https://magicbox.bk.tencent.com/static_api/v3/assets/jstree-3.1.1/dist/themes/default/style.min.css" />
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+
+
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/codemirror-5.11/lib/codemirror.css" rel="stylesheet">
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/codemirror-5.11/lib/codemirror.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/codemirror-5.11/mode/xml/xml.js"></script>
+
+     <script type="text/javascript">
+            var app_code = "${APP_ID|h}";                       // 在蓝鲸系统里面注册的"应用编码"
+            var site_url = "${SITE_URL|h}";                     // app的url前缀,在ajax调用的时候，应该加上该前缀
+            var static_url = "${STATIC_URL|h}"; // 静态资源前缀
+     </script>
+
+
+</head>
+
+<body class="bg-bright3" data-bg-color="bg-bright3">
+        
+
+<!--HTML-->
+<div class="king-layout-container height100" id="layoutPanel">
+    <!--  -->
+    <div class="king-layout-main king-flexible-setting">
+        <div class="king-flexible-nav">
+            <div class="logo"></div>
+            <ul class="flexible-list">
+                 <a href="${SITE_URL}"><li class="king-selected-nav"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Configuration Management</li></a>
+                <li><a href="${SITE_URL}readme/"><span class="glyphicon glyphicon-share" aria-hidden="true"></span>Guide</li></a>
+            </ul>
+        </div>
+        <div class="king-flexible-content king-flex-y">
+            <div class="right-layout-header">
+                <div class="navbar-container">
+                    <div class="king-layout-sider-trigger">
+                        <span class="open-icon"></span>
+                        <span class="close-icon hide"></span>
+                    </div>
+                    <div class="navbar-header pull-right">
+                        <ul class="nav item-pull-right">
+                            <li class="fr header-user">
+                                <div class="fr logout">
+                                  <span class="magic-poweroff">退出</span>
+                                </div>
+                                <div class="fr" id="magic_user">
+                                    <img class="img-rounded" src="https://magicbox.bk.tencent.com/static_api/v3/components/horizontal_nav1/images/avatar.png" alt="" class="avatar">
+                                    <a class="name" href="javascript:;">${username}</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-layout-main">
+                <div class="king-breadcrumb">
+                    <%block name='content_head'></%block>
+                </div>
+             
+                <div class="right-layout-content">
+                    <div class="right-content-main">
+                   <%block name='content'></%block>
+                   </div>
+                </div>
+            
+            </div>
+        </div>
+ 
+    </div>
+</div>
+
+
+
+
+
+<!-- <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script> -->
+<script>
+    //layoutPanel_js_start
+    $(".flexible-list").on("click","li",function(){
+        $(this).addClass("king-selected-nav").siblings().removeClass("king-selected-nav");
+    });
+ 
+    setTimeout(function(){
+        $(".king-layout-sider-trigger").unbind("click").click(function(){
+            $(".king-flexible-nav").toggleClass("king-layout-sider-collapsed");
+            $(this).children().toggleClass("hide");
+        })
+    },0)
+    //layoutPanel_js_end
+</script>
+
+</body>
+
+</html>

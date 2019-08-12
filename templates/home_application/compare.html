@@ -1,0 +1,98 @@
+<%inherit file="/home_application/base.html"/>
+<!-- {% extends "home_application/base1.html" %} -->
+<%block name="content">
+ <!-- {% block content %} -->
+  
+      <div class="container-fluid mb0 ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="container-fluid mb0 ">
+                              <div class="panel-heading">  <button type="button" id="rollback" class="king-btn mr10  king-success" >回滚</button></div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                       <div class="panel panel-default mb0">
+                                            <div class="panel-heading">最新文件</div>
+                                            <div class="panel-body"> 
+
+                                            <div style="border: 1px solid #ddd;" id="editor_latest">
+                                               
+                                                <textarea id="editor_latest_demo"  name="code_box"> </textarea>
+                                                <!-- 代码文本 start -->
+                                               
+                                                <pre id="code_box1" style="display:none;">${config_object.content}</pre>                                             
+                                                <!-- 代码文本 end -->
+                                                </div>
+                                              <!-- editor-end -->
+                                                                               
+                                               
+                                              
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      <!-- editor -->
+                                          <div class="panel panel-default mb0">
+                                            <div class="panel-heading">历史文件 </div>
+                                      
+                                            <div class="panel-body"> 
+
+                                              <!-- editor -->
+                                                <div style="border: 1px solid #ddd;" id="editor_history">
+                                               
+                                                <textarea id="editor_history_demo"  name="code_box"></textarea>
+                                                
+                                                <pre id="code_box2" style="display:none;">${historyConf_object.content}</pre>
+                                             
+                                                </div>
+                                              <!-- editor-end -->
+                                                                                                                    
+                                        </div>
+                                    </div>
+                                           
+                                    </div>
+                                </div>
+                            </div>
+                      </div>
+                    </div>
+                </div>
+
+
+
+ 
+<script src="https://magicbox.bk.tencent.com/static_api/v3/assets/jstree-3.1.1/dist/jstree.min.js"></script>
+ <script src="${STATIC_URL}js/cmdb.js" type="text/javascript"></script>
+ <script type="text/javascript">
+  var codeText=$("#code_box1").html()
+   var editor = CodeMirror.fromTextArea(document.getElementById("editor_latest_demo"), {
+          lineNumbers: true,
+          mode: "text/x-python",
+          matchBrackets: true
+        });
+        editor.setValue(codeText);
+        editor.setOption("readOnly", true); 
+ </script>
+ <script type="text/javascript">
+  var codeText=$("#code_box2").html()
+     var editor = CodeMirror.fromTextArea(document.getElementById("editor_history_demo"), {
+          lineNumbers: true,
+          mode: "text/x-python",
+          matchBrackets: true
+        });
+        editor.setValue(codeText);
+        editor.setOption("readOnly", true); 
+ </script>
+<!-- <script src="{{ STATIC_URL }}js/cmdb.js" type="text/javascript"></script> -->
+<!-- {% endblock %} -->
+<script type="text/javascript">
+
+$("#rollback").click(function(){
+
+self.location.href= "../rollBack"
+});
+
+</script>
+
+</%block>
+
+
+      

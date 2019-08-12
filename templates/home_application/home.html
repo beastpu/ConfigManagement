@@ -1,0 +1,73 @@
+<%inherit file="/home_application/base.html"/>
+<!-- {% extends "home_application/base1.html" %} -->
+<%block name="content">
+
+<!--HTML-->
+<div class="king-layout-container height100" id="layoutPanel">
+    <!--  -->
+    <div class="king-layout-main king-flexible-setting">
+        <div class="king-flexible-nav">
+            <div class="logo"></div>
+            <ul class="flexible-list">
+                <li class="king-selected-nav"><span class="glyphicon glyphicon-user" aria-hidden="true"></span><a href="javascript:;">nav1</a></li>
+                <li><span class="glyphicon glyphicon-share" aria-hidden="true"></span><a href="javascript:;">nav2</a></li>
+                <li><span class="glyphicon glyphicon-share" aria-hidden="true"></span><a href="javascript:;">nav3</a></li>
+                <li><span class="glyphicon glyphicon-share" aria-hidden="true"></span><a href="javascript:;">nav4</a></li>
+                <li><span class="glyphicon glyphicon-share" aria-hidden="true"></span><a href="javascript:;">nav5</a></li>
+                <li><span class="glyphicon glyphicon-share" aria-hidden="true"></span><a href="javascript:;">nav6</a></li>
+            </ul>
+        </div>
+        <div class="king-flexible-content king-flex-y">
+            <div class="right-layout-header">
+                <div class="navbar-container">
+                    <div class="king-layout-sider-trigger">
+                        <span class="open-icon"></span>
+                        <span class="close-icon hide"></span>
+                    </div>
+                    <div class="navbar-header pull-right">
+                        <ul class="nav item-pull-right">
+                            <li class="fr header-user">
+                                <div class="fr logout">
+                                  <span class="magic-poweroff">退出</span>
+                                </div>
+                                <div class="fr" id="magic_user">
+                                    <img class="img-rounded" src="https://magicbox.bk.tencent.com/static_api/v3/components/horizontal_nav1/images/avatar.png" alt="" class="avatar">
+                                    <a class="name" href="javascript:;">admin</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="right-layout-main">
+                <div class="king-breadcrumb">
+                    <span class="king-breadcrumb-link">Home</span>
+                    <span class="king-breadcrumb-separator">/</span>
+                    <span class="king-breadcrumb-link">List</span>
+                    <span class="king-breadcrumb-separator">/</span>
+                    <span class="king-breadcrumb-link">App</span>
+                </div>
+               
+                
+            </div>
+        </div>
+ 
+    </div>
+</div>
+
+<script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/jquery-1.10.2.min.js"></script>
+<script>
+    //layoutPanel_js_start
+    $(".flexible-list").on("click","li",function(){
+        $(this).addClass("king-selected-nav").siblings().removeClass("king-selected-nav");
+    });
+ 
+    setTimeout(function(){
+        $(".king-layout-sider-trigger").unbind("click").click(function(){
+            $(".king-flexible-nav").toggleClass("king-layout-sider-collapsed");
+            $(this).children().toggleClass("hide");
+        })
+    },0)
+    //layoutPanel_js_end
+</script>
+</%block>
