@@ -14,7 +14,7 @@ from django.http import HttpResponse,JsonResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from models import *
-#from account import role_check,is_post_method,role_check_2
+from account import role_check,is_post_method,role_check_2
 import json 
 import re
 from django.shortcuts import render as drender
