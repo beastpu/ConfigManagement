@@ -2,6 +2,17 @@
 <!-- {% extends "home_application/base1.html" %} -->
 
 <%block name="content_head">
+<style>
+.textstyle {
+border: 1px solid #ddd;
+font-size: 14px;
+}
+.king-flexible-setting {
+display: -webkit-box;
+}
+
+</style>
+
        <span class="king-breadcrumb-link">CMDB</span>
        <span class="king-breadcrumb-separator">/</span>
        <span class="king-breadcrumb-link">Project</span>
@@ -19,9 +30,12 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                        <div class="panel panel-default mb0">
-                                            <div class="panel-heading"> ${project.name} 目录 <span class="glyphicon glyphicon-plus" aria-hidden="true" id="modal-bu" data-toggle="modal" data-target="#exampleModal"></span>
+                                            <div class="panel-heading"> ${project.name} 目录 
+                                               % if role_id is 1:
+                                              <span class="glyphicon glyphicon-plus" aria-hidden="true" id="modal-bu" data-toggle="modal" data-target="#exampleModal"></span>
                                               <span class="glyphicon glyphicon-edit" aria-hidden="true" id="edit"></span>
-     
+                                              <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true" id="copy"></span>
+                                                 % endif
                                             </div>
 
                                             <div class="panel-body"> 
@@ -36,7 +50,9 @@
                                       <!-- editor -->
                                           <div class="panel panel-default mb0">
                                             <div class="panel-heading">代码编辑器
+                                                 % if role_id is 1:
                                                <button type="button" id="history" class="king-btn mr10  king-success" >历史版本</button>
+                                                  % endif
                                                   <button type="button" id="api" class="king-btn mr10  king-success">API</button>
                                                <button type="button" id="fullscreen" class="king-btn mr10  king-success">全屏编辑器</button>
                                             </div>
@@ -54,6 +70,13 @@
                                                         <option  value="midnight">midnight</option>
                                                         <option   value="duotone-light">duotone-light</option>
                                                     </select>
+                                                     <select class="select3_box" id="font" style="width:300px;">
+                                                        <option value='' disabled selected style='display:none;'>请选择字体</option>
+                                                       	<option  value="20px">20px</option>
+							<option  value="15px">15px</option>
+							<option  value="10px">10px</option>
+                                                    </select>
+
                                                     <!-- select2 静态 end -->
                                                 </div>
                                             </div>                             
@@ -65,22 +88,24 @@
                                                  <!--HTML-->
                                            
                                            
-                                                <div style="border: 1px solid #ddd;" id="editor2_demo1">
+                                                <div class="textstyle" id="editor2_demo1">
                                                
                                                 <textarea id="editor2_demo" ></textarea>
                                                 <textarea id="code2" class="hide">#!/usr/bin/env python
 # -*- coding: utf8 -*-</textarea>               <textarea id="code3" class="hide">#!/bin/sh</textarea>
                                                 <!-- 代码文本 start -->
                                                
-                                                <pre id="code_box" style="display:none;">
+                                                <pre  id="code_box" style="display:none;">
                                                 
                                                 </pre>
 
                                                 <!-- 代码文本 end -->
                                                 </div>
                                               <!-- editor-end -->
-                                              <div class="input-group">                             
+                                              <div class="input-group"> 
+                                                 % if role_id is 1:                            
                                                 <button type="button" id="cbutton" class="king-btn mr10  king-success">提交</button>
+                                                  % endif
                                                 <button type="button" id="download" class="king-btn king-default">下载</button>
                                               </div><hr/>
 

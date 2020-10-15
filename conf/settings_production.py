@@ -10,22 +10,33 @@ See the License for the specific language governing permissions and limitations 
 
 用于正式环境的全局配置
 """
-from settings import APP_ID
-
+import os
 
 # ===============================================================================
 # 数据库设置, 正式环境数据库设置
 # ===============================================================================
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': os.environ.get('DB_NAME'),
+#       'USER': os.environ.get('DB_USERNAME'),
+#        'PASSWORD': os.environ.get('DB_PASSWORD'),
+#        'HOST': os.environ.get('DB_HOST'),
+#        'PORT': os.environ.get('DB_PORT'),
+#    },
+#}
+
+
 DATABASES = {
 	# 默认db，主要记录主要和公用信息
          'default': {
             'ENGINE': 'django.db.backends.mysql',   # Add 'postgresql_psycopg2', 'p$
             'NAME': 'cmdb',                    # Or path to database file if usi$
             'USER': 'root',
-            'PASSWORD': 'fai',
-            'HOST': '10.10.5.129',
-            'PORT': '3307',                         # Set to empty string for defau$
-            #'OPTIONS':{
+            'PASSWORD': 'mysql@91act',
+            'HOST': '10.10.4.12',
+            'PORT': '3306',                         # Set to empty string for defau$
+#            #'OPTIONS':{
             #    'init_command':'SET storage_engine=INNODB',
             #},
         }

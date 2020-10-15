@@ -25,7 +25,7 @@ import sys
 # Import global settings to make it easier to extend settings.
 from django.conf.global_settings import *  # noqa
 
-
+C_FORCE_ROOT = '/root/cmdb/home_applications'
 # ==============================================================================
 # 应用基本信息配置 (请按照说明修改)
 # ==============================================================================
@@ -46,6 +46,8 @@ BROKER_URL_DEV = 'amqp://guest:guest@127.0.0.1:5672/'
 CELERY_IMPORTS = (
     'home_application.celery_tasks',
 )
+CELERY_TIMEZONE = 'Asia/Shanghai'
+CELERY_ENABLE_UTC=True
 
 # ==============================================================================
 # 应用运行环境配置信息

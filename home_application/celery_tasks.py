@@ -14,22 +14,34 @@ celery 任务示例
 周期性任务还需要启动celery调度命令：python  manage.py  celerybeat --settings=settings
 """
 import datetime
+import os
+from celery import task,platforms
 
-from celery import task
 from celery.schedules import crontab
 from celery.task import periodic_task
-
+import time
 from common.log import logger
-
-
+from django.http import HttpResponse,JsonResponse
+platforms.C_FORCE_ROOT = True 
 @task()
 def async_task(x, y):
     """
     定义一个 celery 异步任务
     """
+    logger.info("start")
+    logger.error("end")     
     logger.error(u"celery 定时任务执行成功，执行结果：{:0>2}:{:0>2}".format(x, y))
     return x + y
+@task()
+def add():
+ os.system("echo 11 >> /tmp/a.txt")
 
+
+def test(request):
+        now = datetime.datetime.now()
+        #异步
+        async_task.apply_async(args=[2,3], eta=now + datetime.timedelta(seconds=60))
+        return HttpResponse("gg")
 
 def execute_task():
     """
@@ -42,20 +54,23 @@ def execute_task():
         apply_async(): 设置celery的额外执行选项时必须使用该方法，如定时（eta）等
                       详见 ：http://celery.readthedocs.org/en/latest/userguide/calling.html
     """
+    
     now = datetime.datetime.now()
     logger.error(u"celery 定时任务启动，将在60s后执行，当前时间：{}".format(now))
     # 调用定时任务
-    async_task.apply_async(args=[now.hour, now.minute], eta=now + datetime.timedelta(seconds=60))
+    async_task.apply_async(args=[now.hour, now.minute], eta=now + datetime.timedelta(seconds=5))
 
 
-@periodic_task(run_every=crontab(minute='*/5', hour='*', day_of_week="*"))
+@periodic_task(run_every=crontab(minute='*', hour='*', day_of_week="*"))
 def get_time():
     """
     celery 周期任务示例
 
     run_every=crontab(minute='*/5', hour='*', day_of_week="*")：每 5 分钟执行一次任务
     periodic_task：程序运行时自动触发周期任务
+
     """
-    execute_task()
+    logger.error("start")
+    add.delay()
     now = datetime.datetime.now()
     logger.error(u"celery 周期任务调用成功，当前时间：{}".format(now))

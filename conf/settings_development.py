@@ -19,9 +19,9 @@ DATABASES = {
             'ENGINE': 'django.db.backends.mysql',   # Add 'postgresql_psycopg2', 'p$
             'NAME': 'cmdb',                    # Or path to database file if usi$
             'USER': 'root',
-            'PASSWORD': 'fai',
-            'HOST': '10.10.5.129',
-            'PORT': '3307',                         # Set to empty string for defau$
+            'PASSWORD': 'mysql@91act',
+            'HOST': '10.10.4.12',
+            'PORT': '3306',                         # Set to empty string for defau$
             #'OPTIONS':{
             #    'init_command':'SET storage_engine=INNODB',
             #},

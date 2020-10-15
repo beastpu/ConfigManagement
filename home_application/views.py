@@ -10,42 +10,47 @@ See the License for the specific language governing permissions and limitations 
 """
 
 from common.mymako import render_mako_context as render
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from models import *
+#from account import role_check,is_post_method,role_check_2
 import json 
+import re
 from django.shortcuts import render as drender
+from django.utils.decorators import method_decorator
+from collections import namedtuple
 
-def index(request):
+
+@role_check
+def index(request,role_id):
     if request.method == 'GET':
-        if request.user.is_authenticated():
-                username = request.user.username
+        
+#        if username not in userList:
+#                return render(request, '/home_application/contact.html')
         project_list=Project.objects.all()
-        context={"plist":project_list,"username":username}
+        context={"plist":project_list,"username":request.user.username,"role_id":role_id}
         return render(request, '/home_application/index.html', context)
-    # else:
 
-    #     pname=request.POST["pname"]
-    #    p=Project(name=pname)
-    #    p.save()
-def detail(request,project_id):
-    
-    
+
+@role_check_2
+def detail(request,project_id,role_id):
+       
     p=Project.objects.get(id=project_id)
-    context={"project":p,"username":request.user.username}
+    context={"project":p,"username":request.user.username,"role_id":role_id}
     return render(request, 'home_application/detail.html',context)
 
+
 def addProject(request):
-   
     if request.method == 'POST':
        pname=request.POST["pname"]
        code_name=request.POST["code_name"]
        p=Project(name=pname,code_name=code_name)
        p.save()
        return HttpResponseRedirect(reverse('index'))
+    
 def deleteProject(request):
-    paas
+    pass
 
 #构建目录树结构
 def createDic(id,parent,text):
@@ -58,6 +63,7 @@ def createDic(id,parent,text):
 def getdir(request,project_id):
     p=Project.objects.get(id=project_id)
     s_list=p.service_set.all()
+    
     dct=[{"id":"project"+str(p.id),"parent":"#","text":p.code_name,"type":"project"}]
     for s in s_list:
         dct.append(createDic("service"+str(s.id),"project"+str(p.id),s.name))
@@ -70,45 +76,63 @@ def getdir(request,project_id):
     
     return HttpResponse(json.dumps(dct))
 
+def copyDir(request,project_id):
+    """
+    copy module
+    """
+    print request.GET
+    service,src_module,des_module = request.GET.get("service"),request.GET.get("src_module"),request.GET.get("des_module")
+    service_obj = Project.objects.get(id=project_id).service_set.get(name=str(service))
+    module = Project.objects.get(id=project_id).service_set.get(name=str(service)).module_set.get(name=src_module)
+    new_module = Module.objects.create(name=des_module,service=service_obj)
+    config_obj = module.config_set.all()
+    for obj in config_obj:
+        Config.objects.create(fileName=obj.fileName,content=obj.content,module=new_module)
+        
+    return HttpResponseRedirect(reverse('detail',kwargs={"project_id":project_id}))    
+
+
 def editDir(request,project_id):
-    print "start"
+    
     if request.POST:
         edit_id=request.POST["edit_id"]
         edit_content=request.POST["edit_content"]
         edit_type=request.POST["edit_type"]
-        
+        print re.match('service',edit_type)   
         if request.POST.has_key('save'):
             
-            if edit_type == "project":
-                p = Project.objects.get(id=edit_id)
-                p.code_name = edit_content
-                p.save()
-            elif edit_type == "service":
+            if re.match('project',edit_type) != None:
+                s = Project.objects.get(id=edit_id)
+                s.name=edit_content
+                s.save()
+            elif re.match('service',edit_type) != None:
                 s = Service.objects.get(id=edit_id)
                 s.name=edit_content
                 s.save()
-            elif edit_type == "module":
+            elif re.match('module',edit_type) != None:
                 m = Module.objects.get(id=edit_id)
                 m.name = edit_content
                 m.save()
-            elif edit_type == "config":
+            elif re.match('config',edit_type) != None:
                 c = Config.objects.get(id=edit_id)
-                c.name = edit_content
+                c.fileName = edit_content
+		print c.fileName
                 c.save()
             else:
                 print "edit_type not exeist"
 
         if  request.POST.has_key('delete'):
-             if edit_type == "project":
-                Project.objects.get(id=edit_id).delete()
-             elif edit_type == "service":
+           
+         
+             if re.match('service',edit_type) != None:              
                 Service.objects.get(id=edit_id).delete()
-             elif edit_type == "module":
+             elif re.match('module',edit_type) != None:
                 m = Module.objects.get(id=edit_id).delete()
-             elif edit_type == "config":
+             elif re.match('config',edit_type) !=None:
                 c = Config.objects.get(id=edit_id).delete()
              else:
-                print "edit_type not exeist"     
+                print "edit_type not exeist"
+               
         
     return HttpResponseRedirect(reverse('detail',kwargs={"project_id":project_id}))
 
@@ -130,9 +154,7 @@ def updateConf(request,project_id):
         config.content=content
         config.comment=comment
         config.save()
-        print config.comment
-        config.confighistory_set.create(fileName=config.fileName,config=config,content=config.content,comment=config.comment,create_user=request.user.username)
-        
+        config.confighistory_set.create(fileName=config.fileName,config=config,content=config.content,comment=config.comment,create_user=request.user.username)        
         return HttpResponse(json.dumps("sucess"),content_type="application/json")
 
 def createConf(request,project_id):
@@ -177,6 +199,19 @@ def configApi(request,config_id):
     config_object = Config.objects.get(id=config_id)
     return HttpResponse(config_object.content)
 
+def get_config_list(request):
+    """
+     通过项目 服务 模块名 获取所有配置
+    """
+    
+    data = request.POST
+    project,service,module = data.get("project"),data.get("service"),data.get("module")
+    config_obj_list = Project.objects.get(name=project).service_set.get(name=service).module_set.get(name=module).config_set.all() 
+    res_data = {obj.fileName:obj.content for obj in config_obj_list}
+    return JsonResponse(res_data)
+
+
+
 
 def readme(request):
     """
@@ -198,7 +233,7 @@ def upload(request):
 
 
 
-def contactus(request):
+def contacts(request):
     """
     联系我们
     """
@@ -207,3 +242,9 @@ def contactus(request):
     s=p.service_set.all()
     context={"slist":s,"plist":project_list}
     return render(request, '/home_application/contact.html')
+
+def healthz(request):
+    """
+    健康检查
+    """
+    return HttpResponse("ok")

@@ -96,10 +96,21 @@ function edit_dialog(){
             cancel: true,
     });
     d.show();
-
     
 }
 
+
+function copy_dialog(){
+
+    var d = dialog({
+            width: 400,
+            title: '模块复制',
+            content: '<form id="copy_form" action="copyDir/" method="get"> service: <input class="form-control" id="service" name="service"/><br> src_module: <input type="text" class="form-control" id="src_module" name="src_module"/><br> des_module: <input type="text" class="form-control" id="des_module" name="des_module"/><button class="king-btn king-info" type="submit" id="save" name="save">保存</button></form>',
+            cancel: true,
+    });
+    d.show();
+
+}
 
 //event 
 $(document).ready(function() {
@@ -159,6 +170,14 @@ $(document).ready(function() {
         editor1.setOption("theme", selected_theme);
    
     }),
+    $("#font").change(function(){
+        var selected_font=$("#font option:selected").text();
+        console.log(selected_font)
+      
+        $("#editor2_demo1").css('font-size',selected_font);
+
+    }),
+
     $("#history").click(function(){
         toastr.options = {
              positionClass: "toast-top-center",
@@ -228,6 +247,7 @@ $(document).ready(function() {
             okValue: '确定',
             ok: function() {
              var comment=$("#comment").val()
+             console.log("comment="+comment)
              $.ajax({
                 url: "updateConf/",
                 type: "POST",
@@ -260,6 +280,18 @@ $(document).ready(function() {
         $("#edit_id").attr("value",nodeId);
         $("#edit_type").attr("value",nodeType);
     }),
+
+ $("#copy").click(function(){
+        toastr.options = {
+            positionClass: "toast-top-center",
+        };
+        copy_dialog();
+    }),
+    $("#copy").click(function(){
+          alter("succes")         
+    }),
+
+
     $("#download").click(function(){
          toastr.options = {       
             positionClass: "toast-top-center",

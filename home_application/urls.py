@@ -10,7 +10,7 @@ See the License for the specific language governing permissions and limitations 
 """
 
 from django.conf.urls import url
-from . import views
+from . import views,celery_tasks
 urlpatterns = [
     url(r'^$', views.index,name='index'),
     url(r'^project/(?P<project_id>[0-9]+)/$', views.detail, name='detail'),
@@ -18,9 +18,9 @@ urlpatterns = [
     url(r'^project/(?P<project_id>[0-9]+)/getdir/$', views.getdir,name='getdir'),
     url(r'^project/(?P<project_id>[0-9]+)/editDir/$', views.editDir,name='editDir'),
     url(r'^addProject/$', views.addProject,name='addProject'),
-    #url(r'^home/$', views.home,name='home'),
+    url(r'^task/$', celery_tasks.test,name='test'),
     url(r'^readme/$', views.readme,name='readme'),
-    url(r'^contactus/$', views.contactus,name='contactus'),
+    url(r'^contacts/$', views.contacts,name='contacts'),
     url(r'^project/(?P<project_id>[0-9]+)/getConf/$', views.getConf,name='getConf'),
     url(r'^project/(?P<project_id>[0-9]+)/updateConf/$', views.updateConf,name='updateConf'),
     url(r'^project/(?P<project_id>[0-9]+)/createConf/$', views.createConf,name='createConf'),
@@ -28,8 +28,11 @@ urlpatterns = [
     url(r'^project/(?P<project_id>[0-9]+)/(?P<config_id>[0-9]+)/(?P<confHistory_id>[0-9]+)/compare/$', views.compare,name='compare'),
     # url(r'^project/(?P<project_id>[0-9]+)/(?P<fileName>[-\w]+)/(?P<config_id>[0-9]+)/compare/$', views.compare,name='compare'),
     url(r'^project/(?P<project_id>[0-9]+)/(?P<config_id>[0-9]+)/(?P<confHistory_id>[0-9]+)/rollBack/$', views.rollBack,name='rollBack'),
+    url(r'^project/(?P<project_id>[0-9]+)/copyDir/$', views.copyDir,name='copyDir'),
     url(r'^configApi/(?P<config_id>[0-9]+)/$', views.configApi,name='configApi'),
+    url(r'^api/v1/get_config_list/$', views.get_config_list,name='get_config_list'),
     url(r'^readme/$', views.readme,name='readme'),
+    url(r'^healthz/$', views.healthz,name='healthz'),
     url(r'^download/(?P<node_id>[0-9]+)/$', views.download,name='downlaod'),
     url(r'^upload/$', views.upload,name='upload'),
 
