@@ -202,7 +202,7 @@ $(document).ready(function() {
         api_dialog();
     }),
     $("#api").click(function(){
-        $("#api_address").attr("value","http://paas.bk.91act.com/o/cmdb/configApi/"+config_id+"/")
+        $("#api_address").attr("value","http://paas.bk.**.com/o/cmdb/configApi/"+config_id+"/")
 
     }),
     $("#create_conf").click(function(){
