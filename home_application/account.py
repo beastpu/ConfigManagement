@@ -3,7 +3,7 @@ import json
 from django.http import HttpResponse
 
 def role_check(func):
-    url="http://paas.bk.91act.com/api/c/compapi/v2/bk_login/get_user/"
+    url="http://paas.bk.**.com/api/c/compapi/v2/bk_login/get_user/"
     headers = {'content-type': 'application/json'}
     def func_in(request):
         if request.user.is_authenticated():
@@ -17,7 +17,7 @@ def role_check(func):
     return func_in
 
 def role_check_2(func):
-    url="http://paas.bk.91act.com/api/c/compapi/v2/bk_login/get_user/"
+    url="http://paas.bk.**.com/api/c/compapi/v2/bk_login/get_user/"
     headers = {'content-type': 'application/json'}
     def func_in(request,project_id):
         if request.user.is_authenticated():
