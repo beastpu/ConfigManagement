@@ -19,7 +19,7 @@ DATABASES = {
             'ENGINE': 'django.db.backends.mysql',   # Add 'postgresql_psycopg2', 'p$
             'NAME': 'cmdb',                    # Or path to database file if usi$
             'USER': 'root',
-            'PASSWORD': 'mysql@91act',
+            'PASSWORD': '***',
             'HOST': '10.10.4.12',
             'PORT': '3306',                         # Set to empty string for defau$
             #'OPTIONS':{
